@@ -12,6 +12,7 @@ package org.junit.jupiter.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -37,6 +38,8 @@ class AssumptionsTests {
 		String foo = null;
 		try {
 			assumeTrue(true);
+			assumeTrue(true, "message");
+			assumeTrue(true, () -> "message");
 			foo = "foo";
 		}
 		finally {
@@ -49,30 +52,8 @@ class AssumptionsTests {
 		String foo = null;
 		try {
 			assumeTrue(() -> true);
-			foo = "foo";
-		}
-		finally {
-			assertNotNull(foo);
-		}
-	}
-
-	@Test
-	void assumeTrueWithBooleanTrueAndStringMessage() {
-		String foo = null;
-		try {
-			assumeTrue(true, "true");
-			foo = "foo";
-		}
-		finally {
-			assertNotNull(foo);
-		}
-	}
-
-	@Test
-	void assumeTrueWithBooleanSupplierTrueAndMessageSupplier() {
-		String foo = null;
-		try {
-			assumeTrue(() -> true, () -> "true");
+			assumeTrue(() -> true, "message");
+			assumeTrue(() -> true, () -> "message");
 			foo = "foo";
 		}
 		finally {
@@ -117,6 +98,8 @@ class AssumptionsTests {
 		String foo = null;
 		try {
 			assumeFalse(false);
+			assumeFalse(false, "message");
+			assumeFalse(false, () -> "message");
 			foo = "foo";
 		}
 		finally {
@@ -129,30 +112,8 @@ class AssumptionsTests {
 		String foo = null;
 		try {
 			assumeFalse(() -> false);
-			foo = "foo";
-		}
-		finally {
-			assertNotNull(foo);
-		}
-	}
-
-	@Test
-	void assumeFalseWithBooleanFalseAndStringMessage() {
-		String foo = null;
-		try {
-			assumeFalse(false, "false");
-			foo = "foo";
-		}
-		finally {
-			assertNotNull(foo);
-		}
-	}
-
-	@Test
-	void assumeFalseWithBooleanSupplierFalseAndMessageSupplier() {
-		String foo = null;
-		try {
-			assumeFalse(() -> false, () -> "false");
+			assumeFalse(() -> false, "message");
+			assumeFalse(() -> false, () -> "message");
 			foo = "foo";
 		}
 		finally {
@@ -220,6 +181,13 @@ class AssumptionsTests {
 		List<String> list = new ArrayList<>();
 		assumingThat(() -> false, () -> list.add("test"));
 		assertEquals(0, list.size());
+	}
+
+	@Test
+	void assumingThatWithFailingExecutable() {
+		assertThrows(EnigmaThrowable.class, () -> assumingThat(true, () -> {
+			throw new EnigmaThrowable();
+		}));
 	}
 
 	// -------------------------------------------------------------------

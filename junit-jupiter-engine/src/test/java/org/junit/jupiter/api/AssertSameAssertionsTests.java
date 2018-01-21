@@ -34,6 +34,8 @@ class AssertSameAssertionsTests {
 	void assertSameWithSameObject() {
 		Object foo = new Object();
 		assertSame(foo, foo);
+		assertSame(foo, foo, "message");
+		assertSame(foo, foo, () -> "message");
 	}
 
 	@Test
