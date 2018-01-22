@@ -85,6 +85,21 @@ public final class Constants {
 	 */
 	public static final String DEFAULT_TEST_INSTANCE_LIFECYCLE_PROPERTY_NAME = "junit.jupiter.testinstance.lifecycle.default";
 
+	/**
+	 * Name of the default {@link javax.script.ScriptEngine}.
+	 *
+	 * @see org.junit.jupiter.engine.extension.ConditionalExecutionCondition
+	 */
+	public static final String DEFAULT_CONDITIONAL_SCRIPT_ENGINE_PROPERTY_NAME = "junit.jupiter.conditional.scriptengine.default";
+
+	/**
+	 * Default script engine name is set to {@code javascript}.
+	 *
+	 * @see #DEFAULT_CONDITIONAL_SCRIPT_ENGINE_PROPERTY_NAME
+	 * @see org.junit.jupiter.engine.extension.ConditionalExecutionCondition
+	 */
+	public static final String DEFAULT_CONDITIONAL_SCRIPT_ENGINE_PROPERTY_VALUE = "javascript";
+
 	private Constants() {
 		/* no-op */
 	}
