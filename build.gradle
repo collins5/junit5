@@ -95,7 +95,11 @@ ext {
 		'platform-tests'
 	]
 
-	jacocoCoveredProjects = mavenizedProjects - ['junit-platform-console-standalone']
+	// TODO JaCoCo Add 'junit-platform-gradle-plugin' to jacocoCoveredProjects
+	jacocoCoveredProjects = mavenizedProjects - [
+		'junit-platform-console-standalone',
+		'junit-platform-gradle-plugin'
+	]
 
 	jacocoClassesDir = "$buildDir/jacoco/classes"
 }
@@ -696,7 +700,8 @@ configure(rootProject) {
 
 		task jacocoMerge(type: JacocoMerge) {
 			subprojects.each { subproj ->
-				executionData fileTree(dir: "${subproj.buildDir}/jacoco", include: '*.exec')
+				// TODO JaCoCo include *.exec
+				executionData fileTree(dir: "${subproj.buildDir}/jacoco", include: 'junitPlatformTest.exec')
 				dependsOn subproj.tasks.withType(Test)
 			}
 		}
